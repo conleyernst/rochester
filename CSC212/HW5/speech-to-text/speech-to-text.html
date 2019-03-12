@@ -444,10 +444,19 @@ function array_sum(arr) {
 }
 
 // var current_word_count = 'blah blah blah';
+
+var updateTime = 3000;
+var words_second = 0; 
 function updateCount(){
   // var ps = document.getElementsByClassName("messages");
 
+
+// this was working
   current_word_count = get_word_count(final_transcript);
+
+  words_second = get_word_count(final_transcript); 
+
+
 
   var c = document.getElementById("wordcount").innerHTML = current_word_count;
     // for(var i = 0, len = ps.length; i < len; i++) {
@@ -456,7 +465,7 @@ function updateCount(){
 
 }
 
-setInterval(updateCount, 1000);
+setInterval(updateCount, updateTime);
 
 
 </script>
