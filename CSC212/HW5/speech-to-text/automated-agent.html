@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>My Web Speech </title>
+<title>Web Speech API Demo</title>
 <style>
   * {
     font-family: Verdana, Arial, sans-serif;
@@ -101,18 +101,6 @@
      Upgrade to <a href="//www.google.com/chrome">Chrome</a>
      version 25 or later.</p>
 </div>
-
-<!-- My timeout features -->
-<!-- // <button onclick="setTimeout(myTimeout, 1000);">Try it</button> -->
-
-<div id="counter">
-  <p>foo bar</p>
-  <p id="wordcount"></p>
-  <!-- <span id="count_span" class="count"></span> -->
-  <p>
-</div>
-
-
 <div class="right">
   <button id="start_button" onclick="startButton(event)">
     <img id="start_img" src="mic.gif" alt="Start"></button>
@@ -229,9 +217,6 @@ function updateCountry() {
   select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
 }
 
-// my vars
-var current_word_count = 0;
-
 var create_email = false;
 var final_transcript = '';
 var recognizing = false;
@@ -249,7 +234,6 @@ if (!('webkitSpeechRecognition' in window)) {
     recognizing = true;
     showInfo('info_speak_now');
     start_img.src = 'mic-animate.gif';
-
   };
 
   recognition.onerror = function(event) {
@@ -296,10 +280,8 @@ if (!('webkitSpeechRecognition' in window)) {
     }
   };
 
-  var interim_transcript = '';
-
   recognition.onresult = function(event) {
-    interim_transcript = '';
+    var interim_transcript = '';
     for (var i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
         final_transcript += event.results[i][0].transcript;
@@ -332,38 +314,38 @@ function capitalize(s) {
   return s.replace(first_char, function(m) { return m.toUpperCase(); });
 }
 
-function createEmail() {
-  var n = final_transcript.indexOf('\n');
-  if (n < 0 || n >= 80) {
-    n = 40 + final_transcript.substring(40).indexOf(' ');
-  }
-  var subject = encodeURI(final_transcript.substring(0, n));
-  var body = encodeURI(final_transcript.substring(n + 1));
-  window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
-}
+// function createEmail() {
+//   var n = final_transcript.indexOf('\n');
+//   if (n < 0 || n >= 80) {
+//     n = 40 + final_transcript.substring(40).indexOf(' ');
+//   }
+//   var subject = encodeURI(final_transcript.substring(0, n));
+//   var body = encodeURI(final_transcript.substring(n + 1));
+//   window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+// }
 
-function copyButton() {
-  if (recognizing) {
-    recognizing = false;
-    recognition.stop();
-  }
-  copy_button.style.display = 'none';
-  copy_info.style.display = 'inline-block';
-  showInfo('');
-}
+// function copyButton() {
+//   if (recognizing) {
+//     recognizing = false;
+//     recognition.stop();
+//   }
+//   copy_button.style.display = 'none';
+//   copy_info.style.display = 'inline-block';
+//   showInfo('');
+// }
 
-function emailButton() {
-  if (recognizing) {
-    create_email = true;
-    recognizing = false;
-    recognition.stop();
-  } else {
-    createEmail();
-  }
-  email_button.style.display = 'none';
-  email_info.style.display = 'inline-block';
-  showInfo('');
-}
+// function emailButton() {
+//   if (recognizing) {
+//     create_email = true;
+//     recognizing = false;
+//     recognition.stop();
+//   } else {
+//     createEmail();
+//   }
+//   email_button.style.display = 'none';
+//   email_info.style.display = 'inline-block';
+//   showInfo('');
+// }
 
 function startButton(event) {
   if (recognizing) {
@@ -406,87 +388,4 @@ function showButtons(style) {
   copy_info.style.display = 'none';
   email_info.style.display = 'none';
 }
-
-// my timeout function
-function wordCountTimer() {
-  if (final_transcript){
-    current_word_count = get_word_count(final_transcript) + 0;
-  }
-  else{
-    current_word_count = 0000;
-  }
-  // current_word_count = get_word_count(final_transcript);
-
-  // alert(get_word_count(final_transcript));
-}
-
-// function showWordCount() {
-//   document.getElementById("wordcount").innerHTML = 'person.fullName()';
-// }
-
-// Takes a string as input and returns the number of 
-// words as output.
-// Ex: "The quick brown fox jumps over the lazy dog" would return 9.
-function get_word_count(str) {
-  if (str.length == 0) {
-  return 0;
-  } else {
-  return str.match(/\S+/g).length;
-  }
-}
-
-// Takes an array as input, and returns the sum 
-// of the array as output.
-// Ex: The array sum of [0, 1, 2, 3] is 6.
-// array_sum([0, 1, 2, 3]) = 6
-function array_sum(arr) {
-  return arr.reduce(function(a, b) {
-  return a + b;
-  });
-}
-
-// var current_word_count = 'blah blah blah';
-
-var updateTime = 1000;
-var words_second = 0;
-var words_this_segment = 0;
-function updateCount(){
-  // var ps = document.getElementsByClassName("messages");
-  var feedback = 'cool'
-  
-// this was working
-  // current_word_count = get_word_count(interim_transcript);
-  // words_this_segment = 0;
-  words_this_segment = get_word_count(interim_transcript) - words_second;
-  words_second = get_word_count(interim_transcript);
-
-  if (words_this_segment * 60 <= 133){
-    feedback = "Too slow!";
-  }
-  else if (words_this_segment * 60 >= 188){
-    feedback = "Too fast!";
-  }
-  else {
-    feedback = "Just right!"
-  }
-  // words_second = get_word_count(final_transcript) - words_second;
-
-
-  // document.getElementById("wordcount").innerHTML = words_this_segment;
-  document.getElementById("wordcount").innerHTML = feedback;
-
-
-
-
-
-  // var c = document.getElementById("wordcount").innerHTML = current_word_count;
-    // for(var i = 0, len = ps.length; i < len; i++) {
-    //     ps[i].innerHTML = "messages (" + messageCount + ")";
-    // }
-
-}
-
-setInterval(updateCount, updateTime);
-
-
 </script>
