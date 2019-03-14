@@ -105,12 +105,12 @@
 <!-- My timeout features -->
 <!-- // <button onclick="setTimeout(myTimeout, 1000);">Try it</button> -->
 
-<div id="counter">
+<!-- <div id="counter">
   <p>foo bar</p>
   <p id="wordcount"></p>
-  <!-- <span id="count_span" class="count"></span> -->
+  <span id="count_span" class="count"></span>
   <p>
-</div>
+</div> -->
 
 
 <div class="right">
@@ -123,7 +123,14 @@
   <p>
 </div>
 <div class="center">
-  <div class="sidebyside" style="text-align:right">
+
+  <div id="counter">
+    <p>Rate:</p>
+    <p id="wordcount"></p>
+    <!-- <span id="count_span" class="count"></span> -->
+    <p>
+  </div>
+ <!--  <div class="sidebyside" style="text-align:right">
     <button id="copy_button" class="button" onclick="copyButton()">
       Copy and Paste</button>
     <div id="copy_info" class="info">
@@ -137,7 +144,7 @@
       Text sent to default email application.<br>
       (See chrome://settings/handlers to change.)
     </div>
-  </div>
+  </div> -->
   <p>
   <div id="div_language">
     <select id="select_language" onchange="updateCountry()"></select>
@@ -332,38 +339,38 @@ function capitalize(s) {
   return s.replace(first_char, function(m) { return m.toUpperCase(); });
 }
 
-function createEmail() {
-  var n = final_transcript.indexOf('\n');
-  if (n < 0 || n >= 80) {
-    n = 40 + final_transcript.substring(40).indexOf(' ');
-  }
-  var subject = encodeURI(final_transcript.substring(0, n));
-  var body = encodeURI(final_transcript.substring(n + 1));
-  window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
-}
+// function createEmail() {
+//   var n = final_transcript.indexOf('\n');
+//   if (n < 0 || n >= 80) {
+//     n = 40 + final_transcript.substring(40).indexOf(' ');
+//   }
+//   var subject = encodeURI(final_transcript.substring(0, n));
+//   var body = encodeURI(final_transcript.substring(n + 1));
+//   window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+// }
 
-function copyButton() {
-  if (recognizing) {
-    recognizing = false;
-    recognition.stop();
-  }
-  copy_button.style.display = 'none';
-  copy_info.style.display = 'inline-block';
-  showInfo('');
-}
+// function copyButton() {
+//   if (recognizing) {
+//     recognizing = false;
+//     recognition.stop();
+//   }
+//   copy_button.style.display = 'none';
+//   copy_info.style.display = 'inline-block';
+//   showInfo('');
+// }
 
-function emailButton() {
-  if (recognizing) {
-    create_email = true;
-    recognizing = false;
-    recognition.stop();
-  } else {
-    createEmail();
-  }
-  email_button.style.display = 'none';
-  email_info.style.display = 'inline-block';
-  showInfo('');
-}
+// function emailButton() {
+//   if (recognizing) {
+//     create_email = true;
+//     recognizing = false;
+//     recognition.stop();
+//   } else {
+//     createEmail();
+//   }
+//   email_button.style.display = 'none';
+//   email_info.style.display = 'inline-block';
+//   showInfo('');
+// }
 
 function startButton(event) {
   if (recognizing) {
@@ -453,7 +460,7 @@ var words_this_segment = 0;
 function updateCount(){
   // var ps = document.getElementsByClassName("messages");
   var feedback = 'cool'
-  
+
 // this was working
   // current_word_count = get_word_count(interim_transcript);
   // words_this_segment = 0;
