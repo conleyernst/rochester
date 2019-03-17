@@ -204,7 +204,6 @@
                 off_on: {
                     text: "Have you tried turning it off and on?",
                     possible_actions: "",
-                    turned_off_and_on: false,
                 },
                 advice: {
                     text: "Try turning it off and on. Did that work?",
@@ -238,6 +237,18 @@
                 main: {
                     text: "Our products: Fitbit Surge, Fitbit Charge, Fitbit Blaze",
                     possible_actions: "Please see the name of the one you would like to purchase.",
+                },
+                blaze: {
+                    text: "Would you like to buy the Fitbit Blaze?",
+                    possible_actions: "Yes OR No",
+                },
+                surge: {
+                    text: "Would you like to buy the Fitbit Surge?",
+                    possible_actions: "Yes OR No",
+                },
+                charge: {
+                    text: "Would you like to buy the Fitbit Charge?",
+                    possible_actions: "Yes OR No",
                 },
                 doesnt_exist: {
                     text: "I don't know that one!",
@@ -296,7 +307,7 @@
 
     function validCard(str){
 
-        str.replace("one", '1');
+        str.replace('one', '1');
         str.replace("two", '2');
         str.replace("three", '3');
         str.replace("four", '4');
@@ -308,17 +319,33 @@
         str.replace("zero", '0');
         str.replace(" ",'');
         str.replace("-",'');
+        // var isCredit = true; //todo debug
 
-        str.toString();
+        console.log(str.length);
+        console.log(str);
 
-        var isCredit = true; //todo debug
+        var letters = /^[0-9]+$/;
+        if(str.match(letters)) {
+            console.log("true");
+            if (str.length === 12){
+                return true;
+            }
+        }
 
-        // var pattern = new RegExp("\b4[0-9]{12}(?:[0-9]{3})?\b");
+        return false;
         //
-        // // var credit = "\b4[0-9]{12}(?:[0-9]{3})?\b";
-        // var isCredit = str.test()
+        // var pattern = new RegExp("\b4[0-9]{12}(?:[0-9]{3})?\b");
+        // // var pattern = "^[1-9][0-9]{0,11}$";
+        // //
+        // // // var credit = "\b4[0-9]{12}(?:[0-9]{3})?\b";
+        // return pattern.test(str);
 
-        return isCredit;
+    }
+
+    function validCode(str){
+        var pattern = "\b[0-9]\{3\}\b";
+        return pattern.test(str);
+
     }
 
     var current_state = states.greeting;
@@ -331,15 +358,18 @@
             document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
         }
         else if (current_state === states.account) {
+
             var inner = current_state.inner_states;
             document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+            document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+            document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
 
-            if (current_inner_state === inner.main){
-                document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
-                document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
-
-            }
-            // else{
+            // if (current_inner_state === inner.main){
+            //     document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+            //     document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+            //
+            // }
+            // // else{
             //     document.getElementById("agent_feedback_greeting").innerHTML = "foo bar";
             //     document.getElementById("agent_feedback_text").innerHTML = "foo bar";
             // }
@@ -376,7 +406,7 @@
             document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
 
         }
-        else if (current_state === states.payment_process){
+        else if (current_state === states.payment_process) {
             var inner = current_state.inner_states;
             document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
             document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
@@ -389,14 +419,16 @@
             //     else {
             //         current_inner_state = inner.credit_not_good;
             //     }
-            // }
-            if (current_inner_state === inner.credit_check){
+            // // }
+            if (current_inner_state === inner.credit_check) {
                 console.log("help");
             }
-            if (current_inner_state === inner.credit_not_good){
-                console.log("cool");
+            if (current_inner_state === inner.credit_not_good) {
 
-            }
+                console.log("cool");
+             }
+
+            // }
             // document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
             // document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
             // document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
@@ -406,12 +438,6 @@
         else{
             document.getElementById("agent_feedback_text").innerHTML = "hello world!";
         }
-    }
-
-    function goodbye(){
-        document.getElementById("agent_feedback_greeting").innerHTML = "Thanks for choosing automated agent!";
-        document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
-        document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
     }
 
     function check_transcript(str){
@@ -446,6 +472,24 @@
                console.log("I can't seem to understand you...");
            }
        }
+       else if (current_state === states.account) {
+           // if (current_inner_state === current_state.inner_states.pay_balance){
+           //     current_state = states.payment_process;
+           //     current_inner_state = current_state.inner_states.credit_number;
+           // }
+
+           if (str.includes('pay') || str.includes('payment')){ //had to add make payment as trigger because it kept hearing 'hey' not 'pay'
+               current_state = states.payment_process;
+               current_inner_state = current_state.inner_states.credit_number;
+           }
+           else if (str.includes('check')){
+               current_inner_state = current_state.inner_states.check_balance;
+           }
+           else {
+               console.log("done done done");
+           }
+
+       }
        else if (current_state === states.technical_support){
            if (current_inner_state === current_state.inner_states.check_problem){
                current_inner_state = current_state.inner_states.off_on;
@@ -472,13 +516,30 @@
        }
        else if(current_state === states.product_information) {
            if (current_inner_state === current_state.inner_states.main) {
-               if (str.includes('blaze') || str.includes('charge') || str.includes('surge')) {
-                   current_state = states.payment_process;
-                   current_inner_state = current_state.inner_states.credit_number;
+               if (str.includes('blaze')){
+                   current_inner_state = current_state.inner_states.blaze;
+               }
+               else if (str.includes('charge')){
+                   current_inner_state = current_state.inner_states.charge;
+               }
+               else if (str.includes('surge')) {
+                   current_inner_state = current_state.inner_states.surge;
                }
                else {
                    current_inner_state = current_state.inner_states.doesnt_exist;
                }
+           }
+           else if (current_inner_state === current_state.inner_states.blaze || current_inner_state === current_state.inner_states.charge ||
+           current_inner_state === current_state.inner_states.surge) {
+
+               if (str.includes('yes')){
+                   current_state = states.payment_process;
+                   current_inner_state = current_state.inner_states.credit_number;
+               }
+               else if (str.includes('no')){
+                   current_inner_state = current_state.inner_states.main;
+               }
+
            }
        }
        else if(current_state === states.payment_process){
