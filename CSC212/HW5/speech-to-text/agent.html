@@ -107,6 +107,8 @@
 <div id="agent_feedback">
     <p id="agent_feedback_greeting"></p>
     <p id="agent_feedback_text"></p>
+    <ul id="actions">
+    </ul>
 </div>
 
 
@@ -155,13 +157,18 @@
             possible_actions: "What would you like to do today?"
         },
         account:{
-            alert:function(){
-                alert("its night");
-            },
             area: "Account Information:",
-            possible_actions: "Check Balance or Pay Balance?",
+            // possible_actions: "Check Balance or Pay Balance",
             inner_states: {
-                check_balance: "Your Balance is..."
+                main: {
+
+                },
+                check_balance: {
+
+                },
+                pay_balance: {
+
+                }
             },
         },
         technical_support:{
@@ -178,11 +185,13 @@
 
     function agent_feedback(){
         if (current_state === states.greeting){
-            document.getElementById("agent_feedback_text").innerHTML = current_state.intro;
+            document.getElementById("agent_feedback_text").innerHTML = current_state.area;
         }
         else if (current_state === states.account) {
+            var list = makeList(current_state.possible_actions);
             document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
-            document.getElementById("agent_feedback_text").innerHTML = current_state.possible_actions;
+            document.getElementById("agent_feedback_text").innerHTML = "foo";
+            document.getElementById("actions").innerHTML = list;
 
         }
         else if (current_state === states.account) {
@@ -201,6 +210,15 @@
            console.log("heard!");
        }
        agent_feedback();
+    }
+
+    var listHTML = "";
+    var items = [];
+    var i = 0;
+    function makeList(items) {
+        listHTML += "<li>" + items[i] + "</li>";
+        document.getElementById("actions").innerHTML = listHTML;
+        i++;
     }
 
     agent_feedback();
