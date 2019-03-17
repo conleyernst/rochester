@@ -35,8 +35,8 @@
       <file leaf-file-name="agent.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/agent.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="342" column="43" lean-forward="true" selection-start-line="342" selection-start-column="43" selection-end-line="342" selection-end-column="43" />
+            <state relative-caret-position="363">
+              <caret line="273" column="25" lean-forward="true" selection-start-line="273" selection-start-column="25" selection-end-line="273" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -53,6 +53,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>info_no_speech</find>
+      <find>showInfo</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -126,12 +127,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1552841905760</updated>
-      <workItem from="1552841908937" duration="11920000" />
+      <workItem from="1552841908937" duration="14101000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11920000" />
+    <option name="totallyTimeSpent" value="14101000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -184,8 +185,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/agent.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="342" column="43" lean-forward="true" selection-start-line="342" selection-start-column="43" selection-end-line="342" selection-end-column="43" />
+        <state relative-caret-position="363">
+          <caret line="273" column="25" lean-forward="true" selection-start-line="273" selection-start-column="25" selection-end-line="273" selection-end-column="25" />
         </state>
       </provider>
     </entry>

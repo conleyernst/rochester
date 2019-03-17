@@ -79,6 +79,13 @@
     background-color:transparent;
     padding: 0;
   }
+
+  #product {
+      font-size: 20px;
+      text-align: center;
+      color: #777;
+      visibility: hidden;
+  }
 </style>
 <h1 class="center" id="headline">
   <a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
@@ -108,6 +115,15 @@
     <p id="agent_feedback_greeting"></p>
     <p id="agent_feedback_text"></p>
     <p id="agent_feedback_actions"></p>
+
+    <!--add this chunk later if you have time -->
+    <!--<ul id="product">-->
+        <!--<li>sdfdsfsd</li>-->
+        <!--<li>sdfdsfsd</li>-->
+        <!--<li>sdfdsfsd</li>-->
+        <!--<li>sdfdsfsd</li>-->
+    <!--</ul>-->
+
 </div>
 
 
@@ -216,12 +232,60 @@
                 }
             },
         },
-        bright:{
-            alert:function(){
-                alert("its day");
+        product_information: {
+            area: "Product Information",
+            inner_states: {
+                main: {
+                    text: "Our products: Fitbit Surge, Fitbit Charge, Fitbit Blaze",
+                    possible_actions: "Please see the name of the one you would like to purchase.",
+                },
+                doesnt_exist: {
+                    text: "I don't know that one!",
+                    possible_actions: ""
+                }
             }
+        },
+        payment_process: {
+            area: "Payment Process",
+            main: {
+
+            },
+            credit_number: {
+                text: "Please state your credit card number",
+                possible_actions: "",
+            },
+            credit_number: {
+                text: "Please state your credit card number",
+                possible_actions: "",
+            }
+        },
+        cant_understand:{
+            text: "yikes"
         }
     }
+
+    function makeNumber(str){
+        str.replace("one", '1');
+        str.replace("two", '2');
+        str.replace("three", '3');
+        str.replace("four", '4');
+        str.replace("five", '4');
+        str.replace("six", '4');
+        str.replace("seven", '4');
+        str.replace("eight", '4');
+        str.replace("nine", '4');
+        str.replace("ten", '4');
+
+    }
+
+    function validateCardNumber(number) {
+        var regex = new RegExp("^[0-9]{16}$");
+        if (!regex.test(number))
+            return false;
+
+        return luhnCheck(number);
+    }
+
     var current_state = states.greeting;
     var current_inner_state = states.greeting.inner_states.main;
 
@@ -270,6 +334,20 @@
                 // do something
             }
         }
+        else if (current_state === states.product_information){
+            var inner = current_state.inner_states;
+            document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+            document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+            document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+
+        }
+        else if (current_state === states.payment_process){
+            var inner = current_state.inner_states;
+            document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+            document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+            document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+
+        }
         else{
             document.getElementById("agent_feedback_text").innerHTML = "hello world!";
         }
@@ -305,6 +383,10 @@
                current_state = states.account;
                current_inner_state = current_state.inner_states.main;
            }
+           else if (str.includes('product') || str.includes('information')){
+               current_state = states.product_information;
+               current_inner_state = current_state.inner_states.main;
+           }
            else {
                console.log("I can't seem to understand you...");
            }
@@ -320,25 +402,8 @@
                else if (str.includes('no')){
                    current_inner_state = current_state.inner_states.advice;
                }
-               // if ()
-
-               // if (str.includes('yes')) {
-               //     console.log("cool");
-               //     current_inner_state = current_state.inner_states.yes;
-               // }
-               // else {
-               //     current_inner_state = current_state.inner_states.no;
-               // }
-
-               // else if (str.includes('no')){
-               //     current_inner_state = inner.no;
-               // }
-               // else {
-               //     current_inner_state = inner.no;
-               // }
            }
            else if (current_inner_state === current_state.inner_states.advice){
-               console.log("cool");
                if (str.includes('yes')){
                    current_inner_state = current_state.inner_states.did_work;
                }
@@ -346,24 +411,23 @@
                    current_inner_state = current_state.inner_states.end_support;
                }
            }
-           // else if (current_inner_state = inner.no){
-           //     if (str.includes('yes')){
-           //         current_inner_state = inner.no_yes;
-           //     }
-           //     else if (str.includes('no')){
-           //         current_inner_state = inner.no_no;
-           //     }
-           // }
-           // else if (current_inner_state = inner.yes){
-           //     if (str.includes('yes')) {
-           //         current_inner_state = inner.done;
-           //     }
-           // }
-
            else{
                console.log("Uncaught");
                agent_feedback();
            }
+       }
+       else if(current_state === states.product_information){
+           if (current_inner_state === current_state.inner_states.main) {
+               if (str.includes('blaze') || str.includes('charge') || str.includes('surge')){
+                   console.log("let's start ;payment");
+               }
+               else {
+                   current_inner_state = current_state.inner_states.doesnt_exist;
+               }
+
+           }
+
+
        }
 
        agent_feedback();
