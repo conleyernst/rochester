@@ -250,6 +250,10 @@
                     text: "Would you like to buy the Fitbit Charge?",
                     possible_actions: "Yes OR No",
                 },
+                no: {
+                    text: "Ok! Do you want to see our product list again?",
+                    possible_actions: "See Product List OR Done",
+                },
                 doesnt_exist: {
                     text: "I don't know that one!",
                     possible_actions: ""
@@ -275,6 +279,15 @@
                     text: "That's not valid! Try Again!",
                     possible_actions: "",
                 }
+            }
+        },
+        done: {
+            area: "Thanks for using Automted Agent!",
+            inner_states: {
+                main: {
+                    text: "Hope you come by again soon!",
+                    possible_actions: "",
+                },
             }
         },
         cant_understand:{
@@ -435,6 +448,12 @@
 
 
         }
+        else if (current_state === states.done) {
+            var inner = current_state.inner_states;
+            document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+            document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+            document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+        }
         else{
             document.getElementById("agent_feedback_text").innerHTML = "hello world!";
         }
@@ -537,21 +556,30 @@
                    current_inner_state = current_state.inner_states.credit_number;
                }
                else if (str.includes('no')){
+                   current_inner_state = current_state.inner_states.no;
+               }
+           }
+           else if (current_inner_state === current_state.inner_states.no){
+               if (str.includes('yes') || str.includes('see') ||  str.includes('product') ||  str.includes('list')){
+                   // current_state = states.payment_process;
+                   // current_inner_state = current_state.inner_states.main;
                    current_inner_state = current_state.inner_states.main;
                }
-
+               else if (str.includes('no') || str.includes('done')){
+                   console.log("help");
+                   current_state = states.done;
+                   current_inner_state = current_state.inner_states.main;
+               }
            }
        }
        else if(current_state === states.payment_process){
            if (current_inner_state === current_state.inner_states.credit_number) {
-               console.log("foo");
                if (validCard(str)){
                    current_inner_state = current_state.inner_states.credit_expir;
                }
                else {
                    current_inner_state = current_state.inner_states.credit_not_good;
                }
-               console.log("foo");
                // current_inner_state = current_state.inner_states.credit_check;
            }
            // else if(current_inner_state === current_state.inner_states.credit_check){
