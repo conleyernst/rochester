@@ -408,10 +408,10 @@ function showButtons(style) {
     return;
   }
   current_style = style;
-  copy_button.style.display = style;
-  email_button.style.display = style;
-  copy_info.style.display = 'none';
-  email_info.style.display = 'none';
+  // copy_button.style.display = style;
+  // email_button.style.display = style;
+  // copy_info.style.display = 'none';
+  // email_info.style.display = 'none';
 }
 
 // my timeout function
@@ -467,7 +467,7 @@ function updateCount(){
   words_this_segment = get_word_count(interim_transcript) - words_second;
   words_second = get_word_count(interim_transcript);
 
-  if (words_this_segment * 60 <= 133){
+  if (words_this_segment * 60 < 133){
     feedback = "Too slow!";
   }
   else if (words_this_segment * 60 >= 188){

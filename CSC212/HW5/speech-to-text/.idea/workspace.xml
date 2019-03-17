@@ -17,8 +17,8 @@
       <file leaf-file-name="speech-to-text.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/speech-to-text.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="482" column="2" selection-start-line="482" selection-start-column="2" selection-end-line="482" selection-end-column="60" />
+            <state relative-caret-position="-4817">
+              <caret line="131" column="8" lean-forward="true" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -35,8 +35,8 @@
       <file leaf-file-name="agent.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/agent.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="286" column="89" selection-start-line="286" selection-start-column="89" selection-end-line="286" selection-end-column="89" />
+            <state relative-caret-position="275">
+              <caret line="342" column="43" lean-forward="true" selection-start-line="342" selection-start-column="43" selection-end-line="342" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -50,10 +50,16 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>info_no_speech</find>
+    </findStrings>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/home.html" />
+        <option value="$PROJECT_DIR$/speech-to-text.html" />
         <option value="$PROJECT_DIR$/agent.html" />
       </list>
     </option>
@@ -120,12 +126,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1552841905760</updated>
-      <workItem from="1552841908937" duration="7744000" />
+      <workItem from="1552841908937" duration="11920000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7744000" />
+    <option name="totallyTimeSpent" value="11920000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -156,6 +162,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/home.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -166,15 +177,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/speech-to-text.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="482" column="2" selection-start-line="482" selection-start-column="2" selection-end-line="482" selection-end-column="60" />
+        <state relative-caret-position="-4817">
+          <caret line="131" column="8" lean-forward="true" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agent.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="286" column="89" selection-start-line="286" selection-start-column="89" selection-end-line="286" selection-end-column="89" />
+        <state relative-caret-position="275">
+          <caret line="342" column="43" lean-forward="true" selection-start-line="342" selection-start-column="43" selection-end-line="342" selection-end-column="43" />
         </state>
       </provider>
     </entry>

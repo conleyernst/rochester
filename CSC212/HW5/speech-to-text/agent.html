@@ -181,10 +181,6 @@
         technical_support:{
             area: "Technical Support",
             inner_states: {
-                main: {
-                    text: "What would you like to do?",
-                    possible_actions: "Possible Actions: Check Balance OR Pay Balance",
-                },
                 check_problem: {
                     text: "Please describe your problem...",
                     possible_actions: "",
@@ -192,20 +188,29 @@
                 off_on: {
                     text: "Have you tried turning it off and on?",
                     possible_actions: "",
+                    turned_off_and_on: false,
                 },
-                yes: {
-                    text: "We will connect you to the next available technical agent!",
-                    possible_actions: "",
+                advice: {
+                    text: "Try turning it off and on. Did that work?",
+                    possible_actions: "Did that work? Yes or No?",
                 },
-                no: {
-                    text: "Try turning it off and on.",
-                    possible_actions: "Did it work?",
-                },
-                no_yes: {
+                did_work: {
                     text: "I’m glad I could help. Have a good day!",
                     possible_actions: "",
                 },
-                no_no: {
+                // no: {
+                //     text: "Try turning it off and on.",
+                //     possible_actions: "Did it work?",
+                // },
+                // no_yes: {
+                //     text: "I’m glad I could help. Have a good day!",
+                //     possible_actions: "",
+                // },
+                // no_no: {
+                //     text: "We will connect you to the next available technical agent!",
+                //     possible_actions: "",
+                // },
+                end_support: {
                     text: "We will connect you to the next available technical agent!",
                     possible_actions: "",
                 }
@@ -251,17 +256,18 @@
             document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
             document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
 
-            if (current_inner_state === inner.check_problem) {
-                // document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
-                // document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
-                //change after feedback is displayed
-                current_inner_state = inner.off_on; //todo debug to delay the feeback
+            // if (current_inner_state === inner.check_problem) {
+            //     // document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+            //     // document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+            //     //change after feedback is displayed
+            //     current_inner_state = inner.off_on; //todo debug to delay the feeback
+            //
+            // }
+            if (current_inner_state === inner.off_on){
+                // do something
             }
-            else if (current_inner_state === inner.yes){
-                console.log("DONE");
-            }
-            else if (current_inner_state === inner.no){
-                console.log("DONE");
+            else if (current_inner_state === inner.end_support){
+                // do something
             }
         }
         else{
@@ -269,8 +275,14 @@
         }
     }
 
+    function goodbye(){
+        document.getElementById("agent_feedback_greeting").innerHTML = "Thanks for choosing automated agent!";
+        document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+        document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+    }
+
     function check_transcript(str){
-        var inner = current_state.inner_states;
+        // var inner = current_state.inner_states;
 
        // if (str.includes('account')){
        //     current_state = states.account;
@@ -280,11 +292,9 @@
        //     console.log("heard!");
        // }
 
-
+        str = str.toLowerCase(); //a debug because the speech wasn't being recognized
 
        if (current_state === states.greeting){
-
-           str = str.toLowerCase(); //a debug because the speech wasn't being recognized
 
            if (str.includes('support') || str.includes('technical')){
                current_state = states.technical_support;
@@ -300,26 +310,60 @@
            }
        }
        else if (current_state === states.technical_support){
-           if (current_inner_state === inner.check_problem){
-               console.log("this should be skipped");
+           if (current_inner_state === current_state.inner_states.check_problem){
+               current_inner_state = current_state.inner_states.off_on;
            }
-           if (current_inner_state === inner.off_on){
+           else if (current_inner_state === current_state.inner_states.off_on){
                if (str.includes('yes')){
-                   current_inner_state = inner.yes;
+                   current_inner_state = current_state.inner_states.end_support;
                }
                else if (str.includes('no')){
-                   current_inner_state = inner.no;
+                   current_inner_state = current_state.inner_states.advice;
                }
-           }
-           if (current_inner_state = inner.no){
-               if (str.includes('yes')){
-                   current_inner_state = inner.no_yes;
-               }
-               else if (str.includes('no')){
-                   current_inner_state = inner.no_no;
-               }
-           }
+               // if ()
 
+               // if (str.includes('yes')) {
+               //     console.log("cool");
+               //     current_inner_state = current_state.inner_states.yes;
+               // }
+               // else {
+               //     current_inner_state = current_state.inner_states.no;
+               // }
+
+               // else if (str.includes('no')){
+               //     current_inner_state = inner.no;
+               // }
+               // else {
+               //     current_inner_state = inner.no;
+               // }
+           }
+           else if (current_inner_state === current_state.inner_states.advice){
+               console.log("cool");
+               if (str.includes('yes')){
+                   current_inner_state = current_state.inner_states.did_work;
+               }
+               else if (str.includes('no')){
+                   current_inner_state = current_state.inner_states.end_support;
+               }
+           }
+           // else if (current_inner_state = inner.no){
+           //     if (str.includes('yes')){
+           //         current_inner_state = inner.no_yes;
+           //     }
+           //     else if (str.includes('no')){
+           //         current_inner_state = inner.no_no;
+           //     }
+           // }
+           // else if (current_inner_state = inner.yes){
+           //     if (str.includes('yes')) {
+           //         current_inner_state = inner.done;
+           //     }
+           // }
+
+           else{
+               console.log("Uncaught");
+               agent_feedback();
+           }
        }
 
        agent_feedback();
@@ -475,7 +519,9 @@ if (!('webkitSpeechRecognition' in window)) {
       createEmail();
     }
 
+    // console.log("A: " + current_state.area + current_inner_state.text);
     check_transcript(final_transcript);
+    // console.log("B: " + + current_state.area + current_inner_state.text);
   };
 
   recognition.onresult = function(event) {
@@ -493,6 +539,10 @@ if (!('webkitSpeechRecognition' in window)) {
     if (final_transcript || interim_transcript) {
       showButtons('inline-block');
     }
+    //
+    // if (interim_transcript.toString().contains('yes')){
+    //     check_transcript(interim_transcript);
+    // }
 
     // //my piece
     //   if (final_transcript){
