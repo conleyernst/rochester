@@ -107,8 +107,7 @@
 <div id="agent_feedback">
     <p id="agent_feedback_greeting"></p>
     <p id="agent_feedback_text"></p>
-    <ul id="actions">
-    </ul>
+    <p id="agent_feedback_actions"></p>
 </div>
 
 
@@ -154,20 +153,28 @@
     var states={
         greeting: {
             area: "Hello! Welcome!",
-            possible_actions: "What would you like to do today?"
+            inner_states: {
+                main: {
+                    text: "What would you like to do today?",
+                    possible_actions: "Possible Actions: Account Information OR Technical Support OR Product Information"
+                }
+            },
         },
         account:{
             area: "Account Information:",
             // possible_actions: "Check Balance or Pay Balance",
             inner_states: {
                 main: {
-
+                    text: "What would you like to do?",
+                    possible_actions: "Possible Actions: Check Balance OR Pay Balance",
                 },
                 check_balance: {
-
+                    text: "Your account balance is $1000",
+                    possible_actions: "Pay Balance OR Done",
                 },
                 pay_balance: {
-
+                    text: "Pay your Balance...",
+                    possible_actions: "Pay Balance OR Done",
                 }
             },
         },
@@ -182,16 +189,31 @@
         }
     }
     var current_state = states.greeting;
+    var current_inner_state = states.greeting.inner_states.main;
 
     function agent_feedback(){
         if (current_state === states.greeting){
-            document.getElementById("agent_feedback_text").innerHTML = current_state.area;
+            document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+            document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+            document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
         }
         else if (current_state === states.account) {
-            var list = makeList(current_state.possible_actions);
+            var inner = current_state.inner_states;
+            // document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
             document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
-            document.getElementById("agent_feedback_text").innerHTML = "foo";
-            document.getElementById("actions").innerHTML = list;
+            if (current_inner_state === inner.main){
+                document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+                document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+
+            }
+            else{
+                document.getElementById("agent_feedback_greeting").innerHTML = "foo bar";
+                document.getElementById("agent_feedback_text").innerHTML = "foo bar";
+            }
+            // var list = makeList(current_state.possible_actions);
+            // document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+            // document.getElementById("agent_feedback_text").innerHTML = "foo";
+            // document.getElementById("actions").innerHTML = list;
 
         }
         else if (current_state === states.account) {
@@ -205,6 +227,7 @@
     function check_transcript(str){
        if (str.includes('account')){
            current_state = states.account;
+           current_inner_state = current_state.inner_states.main;
        }
        else{
            console.log("heard!");
