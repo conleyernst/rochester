@@ -180,7 +180,36 @@
         },
         technical_support:{
             area: "Technical Support",
-            possible_actions: "Please describe your problem..."
+            inner_states: {
+                main: {
+                    text: "What would you like to do?",
+                    possible_actions: "Possible Actions: Check Balance OR Pay Balance",
+                },
+                check_problem: {
+                    text: "Please describe your problem...",
+                    possible_actions: "",
+                },
+                off_on: {
+                    text: "Have you tried turning it off and on?",
+                    possible_actions: "",
+                },
+                yes: {
+                    text: "We will connect you to the next available technical agent!",
+                    possible_actions: "",
+                },
+                no: {
+                    text: "Try turning it off and on.",
+                    possible_actions: "Did it work?",
+                },
+                no_yes: {
+                    text: "I’m glad I could help. Have a good day!",
+                    possible_actions: "",
+                },
+                no_no: {
+                    text: "We will connect you to the next available technical agent!",
+                    possible_actions: "",
+                }
+            },
         },
         bright:{
             alert:function(){
@@ -199,25 +228,41 @@
         }
         else if (current_state === states.account) {
             var inner = current_state.inner_states;
-            // document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
             document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+
             if (current_inner_state === inner.main){
                 document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
                 document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
 
             }
-            else{
-                document.getElementById("agent_feedback_greeting").innerHTML = "foo bar";
-                document.getElementById("agent_feedback_text").innerHTML = "foo bar";
-            }
-            // var list = makeList(current_state.possible_actions);
-            // document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
-            // document.getElementById("agent_feedback_text").innerHTML = "foo";
-            // document.getElementById("actions").innerHTML = list;
+            // else{
+            //     document.getElementById("agent_feedback_greeting").innerHTML = "foo bar";
+            //     document.getElementById("agent_feedback_text").innerHTML = "foo bar";
+            // }
+            // // var list = makeList(current_state.possible_actions);
+            // // document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+            // // document.getElementById("agent_feedback_text").innerHTML = "foo";
+            // // document.getElementById("actions").innerHTML = list;
 
         }
-        else if (current_state === states.account) {
+        else if (current_state === states.technical_support) {
+            var inner = current_state.inner_states;
             document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+            document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+            document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+
+            if (current_inner_state === inner.check_problem) {
+                // document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+                // document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+                //change after feedback is displayed
+                current_inner_state = inner.off_on; //todo debug to delay the feeback
+            }
+            else if (current_inner_state === inner.yes){
+                console.log("DONE");
+            }
+            else if (current_inner_state === inner.no){
+                console.log("DONE");
+            }
         }
         else{
             document.getElementById("agent_feedback_text").innerHTML = "hello world!";
@@ -225,23 +270,59 @@
     }
 
     function check_transcript(str){
-       if (str.includes('account')){
-           current_state = states.account;
-           current_inner_state = current_state.inner_states.main;
-       }
-       else{
-           console.log("heard!");
-       }
-       agent_feedback();
-    }
+        var inner = current_state.inner_states;
 
-    var listHTML = "";
-    var items = [];
-    var i = 0;
-    function makeList(items) {
-        listHTML += "<li>" + items[i] + "</li>";
-        document.getElementById("actions").innerHTML = listHTML;
-        i++;
+       // if (str.includes('account')){
+       //     current_state = states.account;
+       //     current_inner_state = current_state.inner_states.main;
+       // }
+       // else{
+       //     console.log("heard!");
+       // }
+
+
+
+       if (current_state === states.greeting){
+
+           str = str.toLowerCase(); //a debug because the speech wasn't being recognized
+
+           if (str.includes('support') || str.includes('technical')){
+               current_state = states.technical_support;
+               current_inner_state = current_state.inner_states.check_problem;
+
+           }
+           else if (str.includes('account')){
+               current_state = states.account;
+               current_inner_state = current_state.inner_states.main;
+           }
+           else {
+               console.log("I can't seem to understand you...");
+           }
+       }
+       else if (current_state === states.technical_support){
+           if (current_inner_state === inner.check_problem){
+               console.log("this should be skipped");
+           }
+           if (current_inner_state === inner.off_on){
+               if (str.includes('yes')){
+                   current_inner_state = inner.yes;
+               }
+               else if (str.includes('no')){
+                   current_inner_state = inner.no;
+               }
+           }
+           if (current_inner_state = inner.no){
+               if (str.includes('yes')){
+                   current_inner_state = inner.no_yes;
+               }
+               else if (str.includes('no')){
+                   current_inner_state = inner.no_no;
+               }
+           }
+
+       }
+
+       agent_feedback();
     }
 
     agent_feedback();
@@ -393,6 +474,8 @@ if (!('webkitSpeechRecognition' in window)) {
       create_email = false;
       createEmail();
     }
+
+    check_transcript(final_transcript);
   };
 
   recognition.onresult = function(event) {
@@ -411,13 +494,13 @@ if (!('webkitSpeechRecognition' in window)) {
       showButtons('inline-block');
     }
 
-    //my piece
-      if (final_transcript){
-        check_transcript(final_transcript);
-      }
-      else{
-          // check_transcript(interim_transcript);
-      }
+    // //my piece
+    //   if (final_transcript){
+    //     check_transcript(final_transcript);
+    //   }
+    //   else{
+    //       // check_transcript(interim_transcript);
+    //   }
 
   };
 }
