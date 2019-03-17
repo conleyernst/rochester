@@ -247,16 +247,23 @@
         },
         payment_process: {
             area: "Payment Process",
-            main: {
-
-            },
-            credit_number: {
-                text: "Please state your credit card number",
-                possible_actions: "",
-            },
-            credit_number: {
-                text: "Please state your credit card number",
-                possible_actions: "",
+            inner_states: {
+                credit_number: {
+                    text: "Please state: Credit Card Number",
+                    possible_actions: "",
+                },
+                credit_expir: {
+                    text: "Please state: Expiration Date",
+                    possible_actions: "",
+                },
+                credit_secure_code: {
+                    text: "Please state: Security Code",
+                    possible_actions: "",
+                },
+                credit_not_good: {
+                    text: "That's not valid! Try Again!",
+                    possible_actions: "",
+                }
             }
         },
         cant_understand:{
@@ -264,26 +271,54 @@
         }
     }
 
-    function makeNumber(str){
+    // function makeNumber(str){
+    //     str.replace("one", '1');
+    //     str.replace("two", '2');
+    //     str.replace("three", '3');
+    //     str.replace("four", '4');
+    //     str.replace("five", '5');
+    //     str.replace("six", '6');
+    //     str.replace("seven", '7');
+    //     str.replace("eight", '8');
+    //     str.replace("nine", '9');
+    //     str.replace("zero", '0');
+    //     return str;
+    // }
+    //
+    // function regexValidate(number) {
+    //     str.test("\b4[0-9]{12}(?:[0-9]{3})?\b");
+    //     // var regex = new RegExp("^[0-9]{16}$");
+    //     // if (!regex.test(number))
+    //     //     return false;
+    //     //
+    //     // return luhnCheck(number);
+    // }
+
+    function validCard(str){
+
         str.replace("one", '1');
         str.replace("two", '2');
         str.replace("three", '3');
         str.replace("four", '4');
-        str.replace("five", '4');
-        str.replace("six", '4');
-        str.replace("seven", '4');
-        str.replace("eight", '4');
-        str.replace("nine", '4');
-        str.replace("ten", '4');
+        str.replace("five", '5');
+        str.replace("six", '6');
+        str.replace("seven", '7');
+        str.replace("eight", '8');
+        str.replace("nine", '9');
+        str.replace("zero", '0');
+        str.replace(" ",'');
+        str.replace("-",'');
 
-    }
+        str.toString();
 
-    function validateCardNumber(number) {
-        var regex = new RegExp("^[0-9]{16}$");
-        if (!regex.test(number))
-            return false;
+        var isCredit = true; //todo debug
 
-        return luhnCheck(number);
+        // var pattern = new RegExp("\b4[0-9]{12}(?:[0-9]{3})?\b");
+        //
+        // // var credit = "\b4[0-9]{12}(?:[0-9]{3})?\b";
+        // var isCredit = str.test()
+
+        return isCredit;
     }
 
     var current_state = states.greeting;
@@ -346,6 +381,26 @@
             document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
             document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
             document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+
+            // if (current_inner_state === inner.credit_check){
+            //     if (validCard(final_transcript)){
+            //         current_inner_state = inner.credit_expir;
+            //     }
+            //     else {
+            //         current_inner_state = inner.credit_not_good;
+            //     }
+            // }
+            if (current_inner_state === inner.credit_check){
+                console.log("help");
+            }
+            if (current_inner_state === inner.credit_not_good){
+                console.log("cool");
+
+            }
+            // document.getElementById("agent_feedback_greeting").innerHTML = current_state.area;
+            // document.getElementById("agent_feedback_text").innerHTML = current_inner_state.text;
+            // document.getElementById("agent_feedback_actions").innerHTML = current_inner_state.possible_actions;
+
 
         }
         else{
@@ -413,23 +468,44 @@
            }
            else{
                console.log("Uncaught");
-               agent_feedback();
            }
        }
-       else if(current_state === states.product_information){
+       else if(current_state === states.product_information) {
            if (current_inner_state === current_state.inner_states.main) {
-               if (str.includes('blaze') || str.includes('charge') || str.includes('surge')){
-                   console.log("let's start ;payment");
+               if (str.includes('blaze') || str.includes('charge') || str.includes('surge')) {
+                   current_state = states.payment_process;
+                   current_inner_state = current_state.inner_states.credit_number;
                }
                else {
                    current_inner_state = current_state.inner_states.doesnt_exist;
                }
-
            }
-
-
+       }
+       else if(current_state === states.payment_process){
+           if (current_inner_state === current_state.inner_states.credit_number) {
+               console.log("foo");
+               if (validCard(str)){
+                   current_inner_state = current_state.inner_states.credit_expir;
+               }
+               else {
+                   current_inner_state = current_state.inner_states.credit_not_good;
+               }
+               console.log("foo");
+               // current_inner_state = current_state.inner_states.credit_check;
+           }
+           // else if(current_inner_state === current_state.inner_states.credit_check){
+           //     console.log("asdfghdsa");
+           //     if (validCard(str)){
+           //         current_inner_state = current_state.inner_states.credit_expir;
+           //     }
+           //     else{
+           //         current_inner_state = current_state.inner_states.credit_not_good;
+           //     }
+           //
+           // }
        }
 
+       //update the agent feedback
        agent_feedback();
     }
 
