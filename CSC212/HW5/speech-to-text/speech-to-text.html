@@ -4,6 +4,10 @@
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
+
+  .body {
+    background-color: #EFE9E7;
+  }
   .center {
     padding: 10px;
     text-align: center;
@@ -31,7 +35,9 @@
     text-align: left;
     vertical-align: top;
   }
-  .
+  .col{
+    text-align: center;
+  }
   #headline {
     font-size: 40px;
     font-weight: 300;
@@ -55,9 +61,6 @@
     background-color:transparent;
     padding: 0;
   }
-  #wordcount {
-    background-color:red;
-  }
 </style>
 
 
@@ -69,7 +72,7 @@
       <a class="nav-link active" href="#">Active</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Much longer nav link</a>
+      <a class="nav-link" href="agent.html">Automatic Agent</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Link</a>
@@ -81,16 +84,33 @@
 </div>
 
 <div class="row">
-  <div class="col-sm">
+  <div class="col">
     <h1>Speech Speed Regulator</h1>
   </div>
 </div>
   <div class="row">
     <div class="col">
-      <p>Speaking Rate: </p>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Speaking Rate</h5>
+          <h6 class="card-subtitle mb-2 text-muted">WPM</h6>
+          <!--<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
+          <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+          <!--<a href="#" class="card-link">Card link</a>-->
+          <!--<a href="#" class="card-link">Another link</a>-->
+        </div>
+      </div>
     </div>
     <div class="col">
-      <p id="wordcount"></p>
+      <div class="card">
+        <div class="card-body" id="wordcount-card">
+          <h5 class="card-title" id="wordcount"></h5>
+          <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+          <!--<a href="#" class="card-link">Card link</a>-->
+          <!--<a href="#" class="card-link">Another link</a>-->
+        </div>
+      </div>
+      <!--<p id="wordcount"></p>-->
     </div>
   </div>
 <div id="info">
@@ -464,15 +484,15 @@ function updateCount(){
 
   if (words_this_segment * 60 < 133){
     feedback = "Too slow!";
-    document.getElementById("wordcount").style.color = "yellow";
+    document.getElementById("wordcount-card").style.backgroundColor = "yellow";
   }
   else if (words_this_segment * 60 >= 188){
     feedback = "Too fast!";
-    document.getElementById("wordcount").style.color = "red";
+    document.getElementById("wordcount-card").style.backgroundColor = "red";
   }
   else {
     feedback = "Just right!"
-    document.getElementById("wordcount").style.color = "blue";
+    document.getElementById("wordcount-card").style.backgroundColor = "blue";
   }
   // words_second = get_word_count(final_transcript) - words_second;
 
