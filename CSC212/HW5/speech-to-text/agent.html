@@ -255,8 +255,8 @@
                     possible_actions: "See Product List OR Done",
                 },
                 doesnt_exist: {
-                    text: "I don't know that one!",
-                    possible_actions: ""
+                    text: "I don't know that one! Do you want to see our product list again?",
+                    possible_actions: "See Product List OR Done",
                 }
             }
         },
@@ -320,22 +320,24 @@
 
     function validCard(str){
 
-        str.replace('one', '1');
-        str.replace("two", '2');
-        str.replace("three", '3');
-        str.replace("four", '4');
-        str.replace("five", '5');
-        str.replace("six", '6');
-        str.replace("seven", '7');
-        str.replace("eight", '8');
-        str.replace("nine", '9');
-        str.replace("zero", '0');
-        str.replace(" ",'');
-        str.replace("-",'');
+        var myStr = str.toString();
+
+        myStr.replace('one', '1');
+        myStr.replace("two", '2');
+        myStr.replace("three", '3');
+        myStr.replace("four", '4');
+        myStr.replace("five", '5');
+        myStr.replace("six", '6');
+        myStr.replace("seven", '7');
+        myStr.replace("eight", '8');
+        myStr.replace("nine", '9');
+        myStr.replace("zero", '0');
+        myStr.replace(' ','');
+        myStr.replace(' ','');
         // var isCredit = true; //todo debug
 
-        console.log(str.length);
-        console.log(str);
+        console.log(myStr.length);
+        console.log(myStr);
 
         var letters = /^[0-9]+$/;
         if(str.match(letters)) {
@@ -546,6 +548,18 @@
                }
                else {
                    current_inner_state = current_state.inner_states.doesnt_exist;
+               }
+           }
+           else if (current_inner_state === current_state.inner_states.doesnt_exist){
+               if (str.includes('yes') || str.includes('see') ||  str.includes('product') ||  str.includes('list')){
+                   // current_state = states.payment_process;
+                   // current_inner_state = current_state.inner_states.main;
+                   current_inner_state = current_state.inner_states.main;
+               }
+               else if (str.includes('no') || str.includes('done')){
+                   console.log("help");
+                   current_state = states.done;
+                   current_inner_state = current_state.inner_states.main;
                }
            }
            else if (current_inner_state === current_state.inner_states.blaze || current_inner_state === current_state.inner_states.charge ||
