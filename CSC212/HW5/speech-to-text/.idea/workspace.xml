@@ -14,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="speech-to-text.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="speech-to-text.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/speech-to-text.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2">
-              <caret line="452" column="1" lean-forward="true" selection-start-line="452" selection-start-column="1" selection-end-line="452" selection-end-column="1" />
+            <state relative-caret-position="534">
+              <caret line="56" column="14" lean-forward="true" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -32,7 +32,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="agent.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="agent.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/agent.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="454">
@@ -55,14 +55,15 @@
       <find>info_no_speech</find>
       <find>showInfo</find>
       <find>exist</find>
+      <find>headline</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/home.html" />
-        <option value="$PROJECT_DIR$/speech-to-text.html" />
         <option value="$PROJECT_DIR$/agent.html" />
+        <option value="$PROJECT_DIR$/speech-to-text.html" />
       </list>
     </option>
   </component>
@@ -128,12 +129,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1552841905760</updated>
-      <workItem from="1552841908937" duration="20618000" />
+      <workItem from="1552841908937" duration="21843000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20618000" />
+    <option name="totallyTimeSpent" value="21843000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -177,17 +178,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/speech-to-text.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="452" column="1" lean-forward="true" selection-start-line="452" selection-start-column="1" selection-end-line="452" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/agent.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="454">
           <caret line="603" column="81" lean-forward="true" selection-start-line="603" selection-start-column="81" selection-end-line="603" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/speech-to-text.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="56" column="14" lean-forward="true" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
         </state>
       </provider>
     </entry>

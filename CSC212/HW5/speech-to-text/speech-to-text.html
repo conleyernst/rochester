@@ -1,41 +1,16 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>My Web Speech </title>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
-  * {
-    font-family: Verdana, Arial, sans-serif;
-  }
-  a:link {
-    color:#000;
-    text-decoration: none;
-  }
-  a:visited {
-    color:#000;
-  }
-  a:hover {
-    color:#33F;
-  }
-  .button {
-    background: -webkit-linear-gradient(top,#008dfd 0,#0370ea 100%);
-    border: 1px solid #076bd2;
-    border-radius: 3px;
-    color: #fff;
-    display: none;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 1.3;
-    padding: 8px 25px;
-    text-align: center;
-    text-shadow: 1px 1px 1px #076bd2;
-    letter-spacing: normal;
-  }
   .center {
     padding: 10px;
     text-align: center;
   }
   .final {
     color: black;
-    padding-right: 3px; 
+    padding-right: 3px;
   }
   .interim {
     color: gray;
@@ -56,6 +31,7 @@
     text-align: left;
     vertical-align: top;
   }
+  .
   #headline {
     font-size: 40px;
     font-weight: 300;
@@ -79,10 +55,44 @@
     background-color:transparent;
     padding: 0;
   }
+  #wordcount {
+    background-color:red;
+  }
 </style>
-<h1 class="center" id="headline">
-  <a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
-    Web Speech API</a> Demonstration</h1>
+
+
+
+<div class="container">
+<div>
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Active</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Much longer nav link</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </li>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="col-sm">
+    <h1>Speech Speed Regulator</h1>
+  </div>
+</div>
+  <div class="row">
+    <div class="col">
+      <p>Speaking Rate: </p>
+    </div>
+    <div class="col">
+      <p id="wordcount"></p>
+    </div>
+  </div>
 <div id="info">
   <p id="info_start">Click on the microphone icon and begin speaking.</p>
   <p id="info_speak_now">Speak now.</p>
@@ -113,6 +123,7 @@
 </div> -->
 
 
+
 <div class="right">
   <button id="start_button" onclick="startButton(event)">
     <img id="start_img" src="mic.gif" alt="Start"></button>
@@ -124,33 +135,17 @@
 </div>
 <div class="center">
 
-  <div id="counter">
-    <p>Rate:</p>
-    <p id="wordcount"></p>
-    <!-- <span id="count_span" class="count"></span> -->
-    <p>
-  </div>
- <!--  <div class="sidebyside" style="text-align:right">
-    <button id="copy_button" class="button" onclick="copyButton()">
-      Copy and Paste</button>
-    <div id="copy_info" class="info">
-      Press Control-C to copy text.<br>(Command-C on Mac.)
-    </div>
-  </div>
-  <div class="sidebyside">
-    <button id="email_button" class="button" onclick="emailButton()">
-      Create Email</button>
-    <div id="email_info" class="info">
-      Text sent to default email application.<br>
-      (See chrome://settings/handlers to change.)
-    </div>
-  </div> -->
+  <!--<div id="counter">-->
+    <!--<p>Rate:</p>-->
+    <!--<p id="wordcount"></p>-->
+  <!--</div>-->
   <p>
   <div id="div_language">
     <select id="select_language" onchange="updateCountry()"></select>
     &nbsp;&nbsp;
     <select id="select_dialect"></select>
   </div>
+</div>
 </div>
 <script>
 var langs =
@@ -469,12 +464,15 @@ function updateCount(){
 
   if (words_this_segment * 60 < 133){
     feedback = "Too slow!";
+    document.getElementById("wordcount").style.color = "yellow";
   }
   else if (words_this_segment * 60 >= 188){
     feedback = "Too fast!";
+    document.getElementById("wordcount").style.color = "red";
   }
   else {
     feedback = "Just right!"
+    document.getElementById("wordcount").style.color = "blue";
   }
   // words_second = get_word_count(final_transcript) - words_second;
 
