@@ -3,101 +3,36 @@
 <title>My Web Speech </title>
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<style>
-
-  .body {
-    background-color: #EFE9E7;
-  }
-  .center {
-    padding: 10px;
-    text-align: center;
-  }
-  .final {
-    color: black;
-    padding-right: 3px;
-  }
-  .interim {
-    color: gray;
-  }
-  .info {
-    font-size: 14px;
-    text-align: center;
-    color: #777;
-    display: none;
-  }
-  .right {
-    float: right;
-  }
-  .sidebyside {
-    display: inline-block;
-    width: 45%;
-    min-height: 40px;
-    text-align: left;
-    vertical-align: top;
-  }
-  .col{
-    text-align: center;
-  }
-  #headline {
-    font-size: 40px;
-    font-weight: 300;
-  }
-  #info {
-    font-size: 20px;
-    text-align: center;
-    color: #777;
-    visibility: hidden;
-  }
-  #results {
-    font-size: 14px;
-    font-weight: bold;
-    border: 1px solid #ddd;
-    padding: 15px;
-    text-align: left;
-    min-height: 150px;
-  }
-  #start_button {
-    border: 0;
-    background-color:transparent;
-    padding: 0;
-  }
-</style>
-
+<link rel="stylesheet" href="styles.css">
 
 
 <div class="container">
-<div>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Speech Speed Regulator</h1>
+      <p class="lead">A regulator to help provide feedback on speed of speech.</p>
+    </div>
+  </div>
+
+
+
   <ul class="nav nav-pills nav-fill">
+    <!--<li class="nav-item">-->
+      <!--<a class="nav-link " href="home.html">Home</a>-->
+    <!--</li>-->
     <li class="nav-item">
-      <a class="nav-link active" href="#">Active</a>
+      <a class="nav-link" href="automated-agent.html">Automated Agent</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="agent.html">Automatic Agent</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      <a class="nav-link active" href="speaking-rate.html">Speaking Rate</a>
     </li>
   </ul>
-</div>
 
-<div class="row">
-  <div class="col">
-    <h1>Speech Speed Regulator</h1>
-  </div>
-</div>
   <div class="row">
     <div class="col">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Speaking Rate</h5>
-          <h6 class="card-subtitle mb-2 text-muted">WPM</h6>
-          <!--<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
-          <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-          <!--<a href="#" class="card-link">Card link</a>-->
-          <!--<a href="#" class="card-link">Another link</a>-->
         </div>
       </div>
     </div>
@@ -105,32 +40,74 @@
       <div class="card">
         <div class="card-body" id="wordcount-card">
           <h5 class="card-title" id="wordcount"></h5>
-          <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-          <!--<a href="#" class="card-link">Card link</a>-->
-          <!--<a href="#" class="card-link">Another link</a>-->
         </div>
       </div>
-      <!--<p id="wordcount"></p>-->
     </div>
   </div>
-<div id="info">
-  <p id="info_start">Click on the microphone icon and begin speaking.</p>
-  <p id="info_speak_now">Speak now.</p>
-  <p id="info_no_speech">No speech was detected. You may need to adjust your
-    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-      microphone settings</a>.</p>
-  <p id="info_no_microphone" style="display:none">
-    No microphone was found. Ensure that a microphone is installed and that
-    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-    microphone settings</a> are configured correctly.</p>
-  <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
-  <p id="info_denied">Permission to use microphone was denied.</p>
-  <p id="info_blocked">Permission to use microphone is blocked. To change,
-    go to chrome://settings/contentExceptions#media-stream</p>
-  <p id="info_upgrade">Web Speech API is not supported by this browser.
-     Upgrade to <a href="//www.google.com/chrome">Chrome</a>
-     version 25 or later.</p>
-</div>
+
+  <div class="row">
+    <div class="col">
+      <div id="info">
+        <p id="info_start">Click on the microphone icon and begin speaking.</p>
+        <p id="info_speak_now">Speak now.</p>
+        <p id="info_no_speech">No speech was detected. You may need to adjust your
+          <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+            microphone settings</a>.</p>
+        <p id="info_no_microphone" style="display:none">
+          No microphone was found. Ensure that a microphone is installed and that
+          <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+            microphone settings</a> are configured correctly.</p>
+        <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+        <p id="info_denied">Permission to use microphone was denied.</p>
+        <p id="info_blocked">Permission to use microphone is blocked. To change,
+          go to chrome://settings/contentExceptions#media-stream</p>
+        <p id="info_upgrade">Web Speech API is not supported by this browser.
+          Upgrade to <a href="//www.google.com/chrome">Chrome</a>
+          version 25 or later.</p>
+      </div>
+    </div>
+
+  </div>
+
+<!--<div class="row">-->
+  <!--<div class="col">-->
+    <!--<h1>Speech Speed Regulator</h1>-->
+  <!--</div>-->
+<!--</div>-->
+  <!--<div class="row">-->
+    <!--<div class="col">-->
+      <!--<div class="card">-->
+        <!--<div class="card-body">-->
+          <!--<h5 class="card-title">Speaking Rate</h5>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col">-->
+      <!--<div class="card">-->
+        <!--<div class="card-body" id="wordcount-card">-->
+          <!--<h5 class="card-title" id="wordcount"></h5>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--<div id="info">-->
+  <!--<p id="info_start">Click on the microphone icon and begin speaking.</p>-->
+  <!--<p id="info_speak_now">Speak now.</p>-->
+  <!--<p id="info_no_speech">No speech was detected. You may need to adjust your-->
+    <!--<a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">-->
+      <!--microphone settings</a>.</p>-->
+  <!--<p id="info_no_microphone" style="display:none">-->
+    <!--No microphone was found. Ensure that a microphone is installed and that-->
+    <!--<a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">-->
+    <!--microphone settings</a> are configured correctly.</p>-->
+  <!--<p id="info_allow">Click the "Allow" button above to enable your microphone.</p>-->
+  <!--<p id="info_denied">Permission to use microphone was denied.</p>-->
+  <!--<p id="info_blocked">Permission to use microphone is blocked. To change,-->
+    <!--go to chrome://settings/contentExceptions#media-stream</p>-->
+  <!--<p id="info_upgrade">Web Speech API is not supported by this browser.-->
+     <!--Upgrade to <a href="//www.google.com/chrome">Chrome</a>-->
+     <!--version 25 or later.</p>-->
+<!--</div>-->
 
 <!-- My timeout features -->
 <!-- // <button onclick="setTimeout(myTimeout, 1000);">Try it</button> -->
@@ -423,24 +400,8 @@ function showButtons(style) {
     return;
   }
   current_style = style;
-  // copy_button.style.display = style;
-  // email_button.style.display = style;
-  // copy_info.style.display = 'none';
-  // email_info.style.display = 'none';
 }
 
-// my timeout function
-function wordCountTimer() {
-  if (final_transcript){
-    current_word_count = get_word_count(final_transcript) + 0;
-  }
-  else{
-    current_word_count = 0000;
-  }
-  // current_word_count = get_word_count(final_transcript);
-
-  // alert(get_word_count(final_transcript));
-}
 
 // function showWordCount() {
 //   document.getElementById("wordcount").innerHTML = 'person.fullName()';
@@ -467,51 +428,43 @@ function array_sum(arr) {
   });
 }
 
-// var current_word_count = 'blah blah blah';
-
 var updateTime = 1000;
+var mult_rate = 60;
 var words_second = 0;
 var words_this_segment = 0;
 function updateCount(){
-  // var ps = document.getElementsByClassName("messages");
-  var feedback = 'cool'
 
-// this was working
-  // current_word_count = get_word_count(interim_transcript);
-  // words_this_segment = 0;
-  words_this_segment = get_word_count(interim_transcript) - words_second;
-  words_second = get_word_count(interim_transcript);
+    if (!(interim_transcript || final_transcript)){
+        document.getElementById("wordcount-card").style.backgroundColor = "#e9ecef";
+        document.getElementById("wordcount").innerHTML = "Start Talking!";
+        return;
+    }
 
-  if (words_this_segment * 60 < 133){
-    feedback = "Too slow!";
-    document.getElementById("wordcount-card").style.backgroundColor = "yellow";
-  }
-  else if (words_this_segment * 60 >= 188){
-    feedback = "Too fast!";
-    document.getElementById("wordcount-card").style.backgroundColor = "red";
-  }
-  else {
-    feedback = "Just right!"
-    document.getElementById("wordcount-card").style.backgroundColor = "blue";
-  }
-  // words_second = get_word_count(final_transcript) - words_second;
+    var feedback = "cool";
+    words_this_segment = get_word_count(interim_transcript) - words_second;
+    words_second = get_word_count(interim_transcript);
 
 
-  // document.getElementById("wordcount").innerHTML = words_this_segment;
-  document.getElementById("wordcount").innerHTML = feedback;
+    if (words_this_segment * mult_rate < 133){
+      feedback = "Too slow!";
+      document.getElementById("wordcount-card").style.backgroundColor = "#CCCCFF";
+    }
+    else if (words_this_segment * mult_rate >= 188){
+      feedback = "Too fast!";
+      document.getElementById("wordcount-card").style.backgroundColor = "#FFCCCC";
+    }
+    else {
+      feedback = "Just right!"
+      document.getElementById("wordcount-card").style.backgroundColor = "#CCFF99";
+    }
 
-
-
-
-
-  // var c = document.getElementById("wordcount").innerHTML = current_word_count;
-    // for(var i = 0, len = ps.length; i < len; i++) {
-    //     ps[i].innerHTML = "messages (" + messageCount + ")";
-    // }
+    document.getElementById("wordcount").innerHTML = feedback;
 
 }
 
 setInterval(updateCount, updateTime);
+document.getElementById("wordcount-card").style.backgroundColor = "#e9ecef";
+document.getElementById("wordcount").innerHTML = "Start Talking!";
 
 
 </script>
