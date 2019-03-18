@@ -288,6 +288,10 @@
                     text: "Hope you come by again soon!",
                     possible_actions: "",
                 },
+                payment: {
+                    text: "Your payment is being processed!",
+                    possible_actions: "Come by again soon!",
+                }
             }
         },
         cant_understand:{
@@ -347,7 +351,7 @@
             }
         }
 
-        return false;
+        return true;
         //
         // var pattern = new RegExp("\b4[0-9]{12}(?:[0-9]{3})?\b");
         // // var pattern = "^[1-9][0-9]{0,11}$";
@@ -359,7 +363,8 @@
 
     function validCode(str){
         var pattern = "\b[0-9]\{3\}\b";
-        return pattern.test(str);
+        // return pattern.test(str);
+        return true;
 
     }
 
@@ -580,7 +585,6 @@
                    current_inner_state = current_state.inner_states.main;
                }
                else if (str.includes('no') || str.includes('done')){
-                   console.log("help");
                    current_state = states.done;
                    current_inner_state = current_state.inner_states.main;
                }
@@ -595,6 +599,21 @@
                    current_inner_state = current_state.inner_states.credit_not_good;
                }
                // current_inner_state = current_state.inner_states.credit_check;
+           }
+           else if (current_inner_state === current_state.inner_states.credit_expir) {
+               current_inner_state = current_state.inner_states.credit_secure_code;
+           }
+           else if (current_inner_state === current_state.inner_states.credit_secure_code) {
+               if (validCode(str)){
+                   current_state = states.done;
+                   current_inner_state = current_state.inner_states.payment;
+               }
+               else {
+                   current_inner_state = current_state.inner_states.credit_not_good;
+               }
+           }
+           else if (current_inner_state === current_state.inner_states.credit_not_good){
+               current_inner_state = current_state.inner_states.credit_number;
            }
            // else if(current_inner_state === current_state.inner_states.credit_check){
            //     console.log("asdfghdsa");
